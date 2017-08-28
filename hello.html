@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue"></script>        
+    </head>
+    <body>
+        <div id='app' title="Hello World!">
+            {{ message }}
+        </div>        
+        <script>
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello Vue!'
+                }
+            })
+        </script>        
+
+        <div id='app2'>
+            <!-- title属性会在鼠标停在上面的时候提示出来 -->
+
+            <!-- v-bind绑定属性 -->
+            <span v-bind:title='message'>
+                鼠标悬停几秒钟查看此处动态绑定的提示信息！
+            </span>
+        </div>
+        <script>
+            const app2 = new Vue({
+                el: '#app2',
+                data: {
+                    message: '页面加载于 ' + new Date().toLocaleString()
+                }
+            })
+        </script>
+
+        <div id='app3'>
+            <!-- v-if如果为真，组件显示，为假，组件隐藏 -->
+            <p v-if='seen'>现在你看到我了</p>
+        </div>
+        <script>
+            const app3 = new Vue({
+                el: '#app3',
+                data: {
+                    seen: true
+                }
+            })
+        </script>
+        
+        <div id='app4'>
+            <ol>
+                <li v-for='todo in todos'>
+                    {{ todo.text }}
+                </li>
+            </ol>
+        </div>
+        <script>
+            const app4 = new Vue({
+                el: '#app4',
+                data: {
+                    todos: [
+                        {text: '学习JavaScript'},
+                        {text: '学习Vue'},
+                        {text: '整个牛项目'}
+                    ]
+                }
+            })
+        </script>
+
+        <div id='app5'>
+            <p>{{ message }}</p>
+            <!-- v-on 绑定事件 -->
+            <button v-on:click='reverseMessage'>逆转消息</button>
+        </div>
+        <script>
+            const app5 = new Vue({
+                el: '#app5',
+                data: {
+                    message: 'Hello Vue.js!'
+                },
+                methods: {
+                    reverseMessage: function() {
+                        this.message = this.message.split('').reverse().join('')
+                    }
+                }                
+            })
+        </script>
+
+        <div id='app6'>
+            <p>{{ message }}</p>
+            <input v-model='message' />
+        </div>
+        <script>
+            const app6 = new Vue({
+                el: '#app6',
+                data: {
+                    message: 'Hello Vue.js!'
+                }
+            })
+        </script>
+
+        <div id='app7'>
+            <ol>
+                <aaa></aaa>
+                <!-- <li>Hello</li> -->
+            </ol>
+        </div>
+        <script>
+                // Vue.component('todo-item', {
+                //     template: '<li>这是个代办事项目</li>'
+                // })
+                Vue.component('aaa', {
+                    template: '<li>这是个待办项</li>',
+                })
+                console.log('什么鬼')
+        </script>
+
+        <p>哈哈哈</p>
+    
+    </body>
+</html>
