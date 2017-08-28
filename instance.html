@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            const vm1  = new Vue({
+
+            }) 
+
+            // 扩展的用法
+            const MyComponent = Vue.extend({
+                // 扩展
+            })
+            var test = new MyComponent()
+
+            // 数据和Vue属性绑定
+            var mdata = { a: 10 }
+            var vm = new Vue({
+                data: mdata
+            })
+
+            var d = { name: '1234' }
+            var v = new Vue({
+                el: '#app',
+                data: d
+            })
+
+            // $是Vue实例对象的属性，为了与数据属性区分
+            console.log(v.$data)
+            console.log(v.$el)
+
+            
+            var v111 = new Vue({
+                data: {
+                    a: 1
+                },
+
+                // 生命周期函数写在这里
+                created: function () {
+                    // `this` 指向 vm 实例
+                    console.log('a is: ' + this.a)
+                }
+            })
+            
+        </script>
+    </head>
+    <body>
+        <div id='app'>App</div>        
+    </body>
+</html>

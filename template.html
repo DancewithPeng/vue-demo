@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <!-- 文本差值, v-once只执行一次绑定，后面的数据变化都不回绑定 -->
+        <!-- 如果要用纯HTML插值， 使用 v-html='rawHtml' -->
+        <span v-once id='text1' v-html='rawHtml'>😄😄😄😄: {{ msg }}</span>
+        <script>
+            const v = new Vue({
+                el: '#text1',
+                data: {
+                    msg: '啊哈哈哈'
+                }
+            })
+        </script>
+
+        
+
+    </body>
+</html>
