@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue"></script>        
+    </head>
+    <body>
+        <div id='example'>
+            <p>Original message: "{{ message }}"</p>
+            <p>Computed reversed message: "{{ reversedMessage }}"</p>
+            <p>Method reversed message: "{{ methodReversedMessage() }}"</p>
+        </div>
+        <script>
+            const v = new Vue({
+                el: '#example',
+                data: {
+                    message: 'Hello Vue.js!'
+                },
+                // 计算属性放在 computed 字段内，每个计算属性都是一个函数，这个函数相当于getter函数
+                // 计算属性会和 本身的属性实时绑定
+                computed: {
+                    reversedMessage: function() {
+                        return this.message.split('').reverse().join('')
+                    }
+                },
+
+                // computed 和 methods的区别是，如果 数据(message)不发生变化，就算重新渲染DOM，
+                // computed 也不会重新计算，而methods是每次渲染都会重新执行的
+                methods: {
+                    methodReversedMessage: function() {
+                        return this.message.split('').reverse().join('')           
+                    }
+                }                            
+            })
+        </script>
+
+        <div id='demo'>
+            <p>{{ fullName }}</p>            
+        </div>
+        <script>
+            const v2 = new Vue({
+                el: '#demo',
+                data: {
+                    firstName: 'Zhang',
+                    lastName: 'San',
+                    fullName: 'Zhang San',
+                },
+                watch: {
+                    firstName: function(newValue) {
+                        this.fullName = newValue + ' ' + this.lastName
+                    },
+                    lastName: function(newValue) {
+                        this.fullName = this.firstName + ' ' + newValue
+                    }
+                }                
+            })
+        </script>
+
+        <div id='dem2'>
+            <p>{{ fullName }}</p>            
+        </div>
+        <script>            
+            const v3 = new Vue({
+                el: '#dem2',
+                data: {
+                    firstName: 'Zhang',
+                    lastName: 'San',
+                },
+                // 相对于 watch，能用computed的地方，优先使用computed，代码更简洁
+                computed: {
+                    fullName: function() {
+                        return this.firstName + ' ' + this.lastName
+                    }
+                }
+            })
+        </script>
+        
+        <div id='demo3'>
+            <p>First Name: {{ firstName }}</p>
+            <p>Last Name: {{ lastName }}</p>
+            <p>Full Name: {{ fullName }}</p>
+        </div>
+        <script>
+            const v4 = new Vue({
+                el: '#demo3',
+                data: {
+                    firstName: 'Zhang',                    
+                    lastName: 'San',
+                },
+
+                // 同时写setter和getter方法的方式
+                computed: {
+                    fullName: {
+                        get: function() {
+                            return this.firstName + ' ' + this.lastName
+                        },
+                        set: function(newValue) {
+                            const names = newValue.split(' ')
+                            this.firstName = names[0]
+                            this.lastName = names[names.length - 1]
+                        }
+                    }
+                }
+            })
+        </script>
+
+    </body>
+</html>

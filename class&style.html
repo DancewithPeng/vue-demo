@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue"></script>        
+        <style>
+            .test {
+                color: red;
+            }
+
+            .aaa {
+                font-size: 100px;
+                background-color: gainsboro;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Vue增强了class -->
+        <!-- 语法，key为css的样式名，value为是否起作用 -->
+        <span id='demo' v-bind:class="{ test: isActive, aaa: isDemo }">Hello Vue.js!</span>
+        <script>
+            const v = new Vue({
+                el: '#demo',
+                data: {
+                    isActive: false,
+                    isDemo: true
+                }
+            })            
+        </script>  
+        
+        <!-- 可以是一个对象 -->
+        <div id='demo2' v-bind:class="classObject">
+            第二个Demo
+        </div>
+        <script>
+            const v2 = new Vue({
+                el: '#demo2',
+                data: {
+                    classObject: {
+                        test: true,
+                        aaa: false                                            
+                    }
+                }
+            })
+        </script>
+
+        <div id='demo3' v-bind:class='classObject'>
+            第三个Demo
+        </div>
+        <script>
+            const v3 = new Vue({
+                el: '#demo3',
+                computed: {
+                    classObject: function() {
+                        return {
+                            test: true,
+                            aaa: true
+                        }
+                    }
+                }
+            })
+        </script>
+
+        <!-- 可以使用数组语法 -->
+        <!-- 数组里是变量，具体可以在Vue的数据中控制 -->
+        <!-- 数组可以和对象嵌套 -->
+        <!-- 用在组件模版的时候，不会覆盖模版中的class -->
+        <div id='demo4' v-bind:class="[test, {aaa: isDemo}]">
+            第四个Demo
+        </div>
+        <script>
+            // 控制
+            const v4 = new Vue({
+                el: '#demo4',
+                data: {
+                    test: 'test',
+                    isDemo: false
+                }
+            })
+        </script>
+
+        <!-- 绑定内联式 -->
+        <!-- style可以用驼峰命名法，或者‘font-size’ -->
+        <!-- 可以直接绑定一个对象 -->
+        <div id='demo5' v-bind:style="{ color: 'red', fontSize: '60px' }">
+            第五个Demo
+        </div>
+        <script>
+            const v5 = new Vue({
+                el: '#demo5',                
+            })
+        </script>
+
+        <!-- 可以直接绑定一个对象 -->
+        <div id='demo6' v-bind:style="hello">
+            第六个Demo
+        </div>
+        <script>
+            const v6 = new Vue({
+                el: '#demo6',
+                data: {
+                    hello: {
+                        color: 'blue',
+                        fontSize: '36px'
+                    }
+                }               
+            })
+        </script>
+    </body>
+</html>
