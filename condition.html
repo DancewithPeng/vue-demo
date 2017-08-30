@@ -1,0 +1,81 @@
+<html>
+    <meta charset="utf-8">
+    <head>
+        <script src="https://unpkg.com/vue"></script> 
+    </head>
+    <body>
+        <div id='demo1'>
+            <!-- 条件渲染，ok是一个变量，为true是渲染DOM，false时，不渲染DOM -->
+            <div v-if="ok">Hello</div>    
+            <!-- 可以使用v-else来处理渲染 -->
+            <div v-else>Hi</div>
+            <div>Vue.js!</div>
+        </div>
+        <script>
+            const v1 = new Vue({
+                el: '#demo1',
+                data: {
+                    ok: true
+                }
+            })
+        </script>
+
+        <div id='demo2'>
+            <!-- v-if可以配合template 标签做整体的条件渲染 -->
+            <template v-if='visible'>
+                <p>Hello </p>
+                <p>Vue.js! </p>
+                <p>Love It!</p>
+            </template>            
+
+            <!-- v-else 元素必须紧跟在 v-if 或者 v-else-if 元素的后面——否则它将不会被识别 -->
+            <template v-else>
+                <p>🐶🐶🐶</p>
+                <p>🤡🤡🤡</p>
+            </template>
+        </div>
+        <script>
+            const v2 = new Vue({
+                el: '#demo2',
+                data: {
+                    visible: true
+                }
+            })
+        </script>
+
+        <div id='demo3'>
+            <!-- Vue为了提高渲染效率，会尽可能复用DOM元素 -->
+            <!-- 如果不想让元素复用，请用有唯一标识作用的key属性 -->
+            <template v-if="type === 'name'">
+                <label>Name: </label><input type="text" placeholder="Enter your Name" key='name' />
+            </template>
+            <template v-else-if='type === "email"'>
+                <label>Email: </label><input type="text" placeholder="Enter your Email" key='email' />
+            </template>           
+        </div>
+        <script>
+            const v3 = new Vue({
+                el: '#demo3',
+                data: {
+                    type: 'name',
+                }
+            })
+        </script>
+
+        <div id='demo4'>
+            <!-- v-show 仅仅是元素的css中display的值，DOM无论在何时所有会渲染 -->
+            <div v-show='show'>哈哈哈哈哈哈哈哈, you can see me</div>            
+        </div>
+        <script>
+            const v4 = new Vue({
+                el: '#demo4',
+                data: {
+                    show: true
+                }
+            })
+        </script>
+
+        
+
+    </body>
+</html>

@@ -102,7 +102,29 @@
                         fontSize: '36px'
                     }
                 }               
+            })            
+        </script>
+
+        <!-- style同样也可以用数组, 添加多个样式对象 -->
+        <div id='demo7' v-bind:style="[aaa, bbb]">
+            第七个Demo            
+        </div>
+        <script>
+            const v7 = new Vue({
+                el: '#demo7',
+                data: {
+                    aaa: {
+                        color: 'yellow',
+                    },
+                    bbb: {
+                        'background-color': 'blue'
+                    }
+                }
             })
         </script>
+
+        <!-- Vue会自动添加适配各浏览器的样式前缀 -->
+        
+        
     </body>
 </html>
