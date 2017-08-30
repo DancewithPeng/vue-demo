@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <div id='demo1'>
+            <!-- v-on用来处理事件 -->
+            <!-- 可以直接把逻辑处理放在v-on中 -->
+            <button v-on:click='count += 1'>点击我</button>            
+            <p>点击了 {{ count }} 次</p>
+        </div>                
+        <script>
+            const v1 = new Vue({
+                el: '#demo1',
+                data: {
+                    count: 0
+                }
+            })
+        </script>
+
+        <div id='demo2'>
+            <!-- v-on中也可以直接放函数 -->
+            <button v-on:click='handleClick'>😂😂😂</button>                    
+        </div>
+        <script>
+            const v2 = new Vue({
+                el: '#demo2',
+                data: {
+                    name: 'Vue.js!',
+                },
+                methods: {
+                    handleClick: function(event) {
+                        alert('Hello' + ' ' + this.name)
+                        
+                        if (event) {
+                            alert(event.target.tagName)
+                        }
+                    }
+                }
+            })
+        </script>
+
+        <div id='demo3'>
+            <!-- 也可以使用内联的JavaScript语句 -->
+            <!-- 如果内联语句需要用到原生的Event的事件，就用$event -->
+            <button v-on:click='say("Hi!")'>Hi</button>
+            <button v-on:click='say("What!", $event)'>What</button>
+
+            <!--  
+            <!-- v-on提供了修饰符来处理 DOM 事件细节。 -->
+            <!-- 阻止单击事件冒泡 -->
+            <!-- <a v-on:click.stop="doThis"></a> -->
+            <!-- 提交事件不再重载页面 -->
+            <!-- <form v-on:submit.prevent="onSubmit"></form> -->
+            <!-- 修饰符可以串联  -->
+            <!-- <a v-on:click.stop.prevent="doThat"></a> -->
+            <!-- 只有修饰符 -->
+            <!-- <form v-on:submit.prevent></form> -->
+            <!-- 添加事件侦听器时使用事件捕获模式 -->
+            <!-- <div v-on:click.capture="doThis">...</div> -->
+            <!-- 只当事件在该元素本身（比如不是子元素）触发时触发回调 -->
+            <!-- <div v-on:click.self="doThat">...</div> -->
+        </div>
+        <script>
+            const v3 = new Vue({
+                el: '#demo3',
+                methods: {
+                    say: function(msg, event) {
+                        alert(msg)
+                        if (event) {
+                            alert(event.target.tagName)
+                        }
+                    }
+                }
+            })
+        </script>
+
+        <div id='demo4'>
+            <!-- 键盘事件 -->
+            <input @keyup.enter='handleKeyEvent($event)'
+                   @keyup.space='handleKeyEvent($event)'
+                   @keyup.esc='handleKeyEvent($event)'
+                   @keyup.tab='handleKeyEvent($event)'
+                   @keyup.delete='handleKeyEvent($event)'
+                   @keyup.up='handleKeyEvent($event)'
+                   @keyup.down='handleKeyEvent($event)'
+                   @keyup.left='handleKeyEvent($event)'
+                   @keyup.right='handleKeyEvent($event)'
+                   @keyup.alt.67='handleKeyEvent($event)'
+            />                                    
+        </div>
+        <script>
+            const v4 = new Vue({
+                el: '#demo4',
+                methods: {
+                    handleKeyEvent: function(event) {
+                        alert(event.key + ': ' + event.keyCode)
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

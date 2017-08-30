@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!-- H5声明 -->
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>
+        <div id='demo1'>
+            <ul>
+                <li v-for='item in items'>
+                    {{ item.text }}
+                </li>
+            </ul>            
+        </div>    
+        <script>
+            const v1 = new Vue({
+                el: '#demo1',
+                data: {
+                    items: [
+                        { text: '啊哈哈哈' },
+                        { text: '👌👌👌' },
+                        { text: '😄😄😄' }
+                    ]
+                }
+            })
+        </script>
+
+        <div id='demo2'>
+            <ul>
+                <!-- v-for可以添加第二个index参数 -->
+                <!-- in 可以换成 of -->
+                <li v-for='(item, index) of items'>
+                    {{ parentMessage }} - {{ item }} - {{ index }}
+                </li>
+            </ul>
+        </div>
+        <script>
+            const v2 = new Vue({
+                el: '#demo2',
+                data: {
+                    parentMessage: '父级变量',
+                    items: [
+                        'red',
+                        'grren',
+                        'blue'
+                    ]
+                }
+            })
+        </script>        
+
+        <div id='demo3'>
+            <ul>
+                <!-- v-for也可以用于template，对一组组件进行操作 -->
+                <!-- v-for的优先级比v-if高 -->
+                <template v-if='isShow' v-for='item of items'>
+                    <li>{{ item }}</li>
+                    <div v-bind:style='styles'></div>
+                </template>
+            </ul>            
+        </div>
+        <script>
+            const v3 = new Vue({
+                el: '#demo3',
+                data: {
+                    items: [
+                        '333',
+                        '222',
+                        '000'
+                    ],
+                    styles: {
+                        color: 'gray',
+                        backgroundColor: 'blue',
+                        height: '1px'
+                    },
+                    isShow: false,
+                }
+            })
+        </script>
+
+        <div id='demo4'>
+            <ul>
+                <!-- v-for 可以遍历对象属性，既对象迭代 -->
+                <!-- 遍历对象属性时，可以添加key和index -->
+                <li v-for='(property, key, index) of obj'>
+                    {{ key }} - {{ index }} - {{ property }}                    
+                </li>
+            </ul>                        
+        </div>
+        <script>
+            const v4 = new Vue({
+                el: '#demo4',
+                data: {
+                    obj: {
+                        name: 'zhang san',
+                        age: 18,
+                        height: '188cm',
+                        nickName: '小三'                        
+                    }
+                }
+            })
+        </script>
+
+        <div id='demo5'>
+            <!-- 整数迭代 -->
+            <span v-for='n in 10'>{{ n }}</span>
+        </div>
+        <script>
+            const v5 = new Vue({
+                el: '#demo5',
+            })
+        </script>
+
+        <div id='demo6'>
+            <!-- 在v-if里面，key用来让DOM元素不要复用 -->
+            <!-- 在v-for里面，key用来让DOM元素更好地复用 -->
+            <!-- 修改数组会直接反应到DOM上，会自动监听 -->
+            <!-- 直接设置数组的arr[index] = newValue 是不能监听数组的变化的 -->
+            <!-- 如果需要修改某个下表的值，又需要反应到DOM上，可以用 -->
+            <!-- Vue.set(example1.items, indexOfItem, newValue) -->
+            <!-- 或者 example1.items.splice(indexOfItem, 1, newValue) -->            
+            <div v-for='item of items' :key='item.id'>
+                {{ item.text }}
+            </div>
+        </div>
+        <script>
+            const v6 = new Vue({
+                el: '#demo6',
+                data: {
+                    items: [
+                        { id: 1, text: '111' },
+                        { id: 2, text: '222' },
+                        { id: 3, text: '333' }
+                    ]
+                }                                
+            })
+        </script>
+
+        <div id='demo7'>
+            <ul>
+                <!-- 这里可以用计算属性 -->
+                <!-- <li v-for='n in evenNumbers'>{{ n }}</li> -->
+                <!-- 或者直接用方法 -->
+                <li v-for='n in even(numbers)'>{{ n }}</li>
+            </ul>
+        </div>
+        <script>
+            const v7 = new Vue({
+                el: '#demo7',
+                data: {
+                    numbers: [1, 2, 3, 4, 5]
+                },
+                computed: {
+                    evenNumbers: function() {
+                        return this.numbers.filter(function(number) {
+                            return number % 2 === 0                                                        
+                        })                        
+                    }
+                },
+                methods: {
+                    even: function(numbers) {
+                        console.log(numbers)
+                        return numbers.filter(function(number) {
+                            return number % 2 === 0
+                        })
+                    }
+                }
+            })
+        </script>
+        
+    </body>
+</html>
