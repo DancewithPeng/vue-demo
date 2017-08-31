@@ -105,5 +105,79 @@
                 }
             })
         </script>
+
+        <div id='demo6'>
+            <!-- 多选列表 -->
+            <select v-model='selected' multiple style="width: 50px">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>                
+            </select>
+            <br>
+            <span>Selected: {{ selected }}</span>
+        </div>
+        <script>
+            const v6 = new Vue({
+                el: '#demo6',
+                data: {
+                    selected: []
+                }
+            })
+        </script>
+
+        <div id='demo7'>
+            <!-- 动态选项 -->
+            <select v-model='selected'>
+                <option v-for='option of options' :value='option.value' :disabled='option.disabled'>
+                    {{ option.text }}
+                </option>
+            </select>
+            <span>Selected: {{ selected }}</span>
+        </div>
+        <script>
+            const v7 = new Vue({
+                el: '#demo7',
+                data: {
+                    selected: '请选择',                    
+                    options: [
+                        { text: '请选择', value: '请选择', disabled: true },
+                        { text: 'One', value: 'A', disabled: false },
+                        { text: 'Two', value: 'B', disabled: false },
+                        { text: 'Three', value: 'C', disabled: false },
+                    ]
+                }
+            })
+        </script>
+        
+        
+
+        <div id='demo8'>
+            <!-- 绑定值 -->
+            <!-- input的v-model可以添加这些修饰符: .lazy .number .trim -->
+            <input type="checkbox" v-model='toggle' :true-value='a' :false-value='b'>
+                Hello
+            </input>
+        </div>
+        <script>
+            const v8 = new Vue({
+                el: '#demo8',
+                data: {
+                    toggle: undefined,
+                    a: 100,
+                    b: 10010
+                }
+            })
+        </script>
+
+        <!-- <div id='demo6'>
+        </div>
+        <script>
+            const v6 = new Vue({
+                el: '#demo6',
+                data: {
+                
+                }
+            })
+        </script> -->
     </body>
 </html>
