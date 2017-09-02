@@ -179,5 +179,101 @@
                 } 
             })
         </script>
+
+        <div id='demo7'>
+            <my-input v-model='test'></my-input>
+            <p>input string: {{ test }}</p>
+        </div>
+        <script>
+            // 自定义组件如果需要实现v-model绑定，需要
+            // 1.有value属性
+            // 2.在事件触发(需要改变值)时，发射input事件
+            const myInput = {
+                template: '<input :value="value" @input="updateValue($event.target.value)"></input>',
+                props: ['value'],
+                methods: {
+                    updateValue: function(value) {
+                        this.$emit('input', value)
+                    }
+                }
+            }
+
+            const v7 = new Vue({
+                el: '#demo7',
+                data: {
+                    test: ''                    
+                },
+                components: {
+                    'my-input': myInput
+                }
+            })
+        </script>        
+
+        <div id='demo8'>
+            <my-checkbox v-model='aaa'></my-checkbox>
+            <p>Checked Value: {{ aaa }}</p>
+        </div>
+        <script>
+            
+            // 自定义Model的值和触发的事件
+            // v-model默认绑定的时value属性和input事件
+            const myCheckbox = {
+                // template: '<div><input :checked="ck" @change="handleChange($event.target)" type="checkbox" id="checkbox" /> <label for="checkbox">哈哈哈</label></div>',
+                template: '<div :style="styles" @click="handleClick"></div>',
+                model: {
+                    // 这两个属性和自定义组件中 input的checked和change没有任何关系，名字可以随便起
+                    // prop: 'ck',
+                    // event: 'cg'                    
+                    prop: 'color',
+                    event: 'change'
+                },
+                props: {
+                    color: String,
+                },
+                data: function() {
+                    return {
+                        styles: {  
+                            backgroundColor: this.color,                          
+                            height: '100px',
+                            width: '100px'                       
+                        }
+                    }                           
+                },
+                methods: {
+                    handleChange: function(value) {
+                        // console.log(value.checked)
+                        this.$emit('cg', value.checked)
+                    },
+                    handleClick: function() {
+                        // console.log('😄😄😄')  
+                        const newColor = this.color === 'red' ? 'blue' : 'red'
+                        this.styles.backgroundColor = newColor                    
+                        this.$emit('change', newColor)
+                    }
+                },
+                // mounted: function() {
+                //     this.styles = {    
+                //         backgroundColor: this.color,                        
+                //         height: '100px',
+                //         width: '100px'                       
+                //     }  
+
+                //     console.log(this.color)                      
+                // },
+                // updated: function() {
+                //     console.log(this.color)
+                // }
+            }
+
+            const v8 = new Vue({
+                el: '#demo8',
+                data: {
+                    aaa: 'red'
+                },
+                components: {
+                    'my-checkbox': myCheckbox
+                }
+            })
+        </script>
     </body>
 </html>

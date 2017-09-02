@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/vue"></script>        
+    </head>
+    <body>
+        <div id='demo1'>            
+            <parent>
+            </parent>            
+        </div>
+        <script>
+                
+            // slot 是备用内容，当组件中间没内容时(<c></c>)，才会显示
+            const child = {
+                    template: '<div> \
+                                    <h2>我是子组件的标题</h2> \
+                                        <slot> \
+                                            只有在没有要分发的内容时才会显示。\
+                                        </slot> \
+                                </div>'
+                }
+    
+            Vue.component('child', child)
+    
+            const parent = {
+                template: '<div> \
+                                <h1>我是父组件的标题</h1> \
+                                    <child> \
+                                        Hello World! \
+                                    </child> \
+                            </div>',
+                                        
+            }
+    
+            const v1 = new Vue({
+                el: '#demo1',
+                data: {
+    
+                },
+                components: {
+                    parent: parent
+                }            
+            })
+        </script>
+
+        <div id='demo2'>
+            <my-container></my-container>                                    
+        </div>
+        <script>
+
+            // slot 可以指定name，用于方便父组件把内容插入到合适的地方
+            // slot 如果不指定name，那么会有一个默认的name就是 slot，如果父组件没有指定的内容
+            // 就会放在这个默认的slot的地方
+            const myLayout = {
+                template: '<div> \
+                            <header> \
+                                <slot name="header"></slot> \
+                            </header> \
+                            <main> \
+                                <slot></slot> \
+                            </main> \
+                            <footer> \
+                                <slot name="footer"></slot> \
+                            </footer> \
+                           </div>'            
+            }
+
+            Vue.component('my-layout', myLayout)
+
+            const container = {
+                template: '<my-layout> \
+                                <h1 slot="header">这里可能是一个页面标题</h1> \
+                                \
+                                <p>主要内容的一个段落。</p> \
+                                <p>另一个主要段落。</p> \
+                                \
+                                <p slot="footer">这里有一些联系信息</p> \
+                           </my-layout>'
+            }    
+
+            const v2 = new Vue({
+                el: '#demo2',
+                data: {
+                    
+                },
+                components: {
+                    'my-container': container
+                }
+            })        
+        </script>
+    </body>
+    
+</html>
+    
